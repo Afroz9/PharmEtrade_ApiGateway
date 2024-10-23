@@ -16,8 +16,9 @@ RUN dotnet publish -c Release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
+
 # Port No
-EXPORT 5000
+EXPOSE 5000
 
 # Set the entry point for the application
 ENTRYPOINT ["dotnet", "PharmEtrade_ApiGateway.dll"]
