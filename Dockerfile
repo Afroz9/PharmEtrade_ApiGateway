@@ -4,12 +4,14 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 # Set the working directory inside the container
 WORKDIR /src
 
-# Copy the project files and restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
+# Copy everything into the container
+COPY . .
 
-# Copy the rest of the app source code
-COPY . ./
+# Navigate to the subdirectory if the .csproj is not in the root
+WORKDIR /src/PharmEtrade_ApiGateway
+
+# Restore dependencies
+RUN dotnet restore
 
 # Publish the application to the /app directory
 RUN dotnet publish -c Release -o /app
